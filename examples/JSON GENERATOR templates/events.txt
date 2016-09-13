@@ -1,0 +1,14 @@
+[
+  '{{repeat(100)}}',
+  {  
+    place_id: '{{integer(0, 99)}}',
+    start_date: '{{moment(this.date(new Date(2014, 0, 1), new Date(2014, 9, 31))).toJSON()}}',
+    end_date: '{{moment(this.date(new Date(2014, 10, 1), new Date())).toJSON()}}',
+    text: '{{lorem(1, "paragraphs")}}',
+    resources: [
+      '{{repeat(0,20)}}',
+      '{{integer(0, 99)}}'
+      
+    ]
+  }
+]

@@ -1,0 +1,22 @@
+[
+  '{{repeat(100)}}',
+  {  
+    date: '{{moment(this.date(new Date(2014, 0, 1), new Date(2014, 11, 31))).toJSON()}}',
+    text: '{{lorem(1, "paragraphs")}}',
+    users: [
+      '{{repeat(0,20)}}',
+      '{{integer(0, 99)}}'
+      
+    ],
+    resources: [
+      '{{repeat(0,30)}}',
+      '{{integer(0, 99)}}'
+      
+    ],
+    events: [
+      '{{repeat(0,10)}}',
+      '{{integer(0, 99)}}'
+      
+    ]
+  }
+]

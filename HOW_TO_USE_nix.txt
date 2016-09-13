@@ -1,0 +1,164 @@
+#### GEOCON v1.0 ####
+
+	INDEX
+
+1. Introduction
+2. Tech details
+3. Examples & Uses
+4. Administrative work
+
+
+—— 1 ——
+
+	INTRODUCTION
+
+Geocon is a Framework for geolocalised applications.
+It’s based on Elasticsearch and it’s written in Java.
+It exposes a RESTful API for interfacing custom software with the Framework, it’s easy to use and configure.
+
+After reading this document, please read the README-Installation file.
+:)
+
+—— 2 ——
+
+	TECH DETAILS
+
+Geocon is based on Elasticsearch, a powerful NoSQL database and search engine.
+Thanks to the technology introduced by Elasticsearch, it’s possible to store schema-free 
+JSON objects - indexing and searching them really fast.
+
+Since this version has as target the developing of a geolocalised tourism-oriented application,
+a suggested schema is provided - and implemented out of the box.
+Please refer to SCHEMAS file inside this folder.
+
+With the default configuration, you’re going to have a web service working and running simply
+running the jar file “geocon.jar”. It’s suggested though to fill the database with some example data. 
+
+Step-by-step instructions:
+1. Enter in the Elasticsearch folder (e.g.: zip/Elasticsearch-1.4.4)
+2. Run the Elasticsearch node (usually ./bin/elasticsearch)
+For details on this part, please read the README-Installation file.
+3. Fill the database with examples:
+	type in a console “java -jar geocon.jar fill” without quotes
+	insert the USERS path (e.g: zip/examples/utenti) and hit return
+	insert the EVENTS path (e.g: zip/examples/eventi) and hit return
+	insert the PLACES path (e.g: zip/examples/posti) and hit return
+	insert the RESOURCES path (e.g: zip/examples/risorse) and hit return
+4. Start the web service
+	in a console, type “java -jar geocon.jar”
+5. The web service is now running and it will refer to an example database composed of
+200 users, 100 events, 100 places and 100 resources.
+
+A simple password authentication tool is included in this version of the software.
+For every created user, a default password “prova” is set. This password
+will be used for some CRUD operations. Detailed information are available in the next chapter.
+
+Please note that this authentication method is for demonstration purpose only. It’s
+highly not recommended to use it as a primary authentication method.
+
+——— 3 ——— 
+	
+	Examples & Uses
+
+Prerequisites: the database is filled with the suggested schema.
+		You have the default configuration in “config.properties” file
+		(for detailed information, please read the README-Installation file)
+		You’re also using a
+		REST client. Suggested software: CocoaRestClient (Mac OS X)
+		Advanced Rest Client (Chrome web browser extension)
+
+Welcome message: http://localhost:8080/geocon/
+
+1* Read from the resources. GET method on USERS/EVENTS/RESOURCES/PLACES
+
+METHOD: GET
+URL: http://localhost:8080/geocon/users/35
+HEADER: empty
+
+You’ll be able to read the information of the user with ID 35.
+
+METHOD: GET
+URL: http://localhost:8080/geocon/events/12
+HEADER: empty
+
+You’ll be able to read the information of the event with ID 12.
+
+METHOD: GET
+URL: http://localhost:8080/geocon/resources/1
+HEADER: empty
+
+You’ll be able to read the information of the resource with ID 1.
+
+
+METHOD: GET
+URL: http://localhost:8080/geocon/places/60
+HEADER: empty
+
+You’ll be able to read the information of the event with ID 60.
+
+2* Create a new resource. POST method on USERS/EVENTS/RESOURCES/PLACES
+
+METHOD: POST
+URL: http://localhost:8080/geocon/users?password=test
+HEADER: Content-Type = application/json
+PAYLOAD: { “name" : {
+    "last" : "Mcconnell",
+    "first" : "Barrett"
+  }
+
+It creates a new user with password set to “test”. As you can see, the example user DOESN’T
+respect the suggested schema. This is not a problem because Elasticsearch is schema-free.
+
+3* Update a resource. PUT method on USERS/EVENTS/RESOURCES/PLACES
+
+METHOD: PUT
+URL: http://localhost:8080/geocon/resources/18
+Header: Content-Type : application/json
+PAYLOAD:
+ {
+  "location" : "event",
+  "date" : "2014-12-16T22:28:42.946Z",
+  "text" : "ciao a tutti belli e brutti",
+  "user_id" : 68,
+  "path" : "http://placehold.it/image.jpg",
+  "location_id" : 63
+}
+
+Resource with ID 18 is overwritten.
+
+4* Delete a resource
+
+METHOD: DELETE
+URL: http://localhost:8080/geocon/events/70
+Header: empty
+PAYLOAD: empty
+
+Delete the event with ID 70.
+
+5* Search a resource
+
+METHOD: GET
+URL: http://localhost:8080/geocon/search?q=…&type=…&size=…
+Header: empty
+PAYLOAD: empty
+
+After the q parameters, you can write whichever Elasticsearch DSL query.
+It’s strongly suggested to take a look to Elasticsearch documentation on
+www.elastic.co
+
+You can search in all the index wide or specify a type with the “type” parameter.
+You can also override the default size of the query result (that usually is 10)
+with the “size” parameter.
+
+——— 4 ————
+
+	Administrative work
+
+If you want to change password for users, the only way is to interact with Elasticsearch
+directly. It’s suggested to install Marvel (and Sense with) as explained in the
+README-Installation file.
+
+If for some reason you want to delete the index, you can send a DELETE HTTP request
+@ cluster_address:cluster_port/geocon
+
+

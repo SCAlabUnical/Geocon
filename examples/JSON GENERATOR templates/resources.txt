@@ -1,0 +1,14 @@
+[
+  '{{repeat(100)}}',
+  {  
+    user_id: '{{integer(0, 99)}}',
+    location: function (tags) {
+      var fruits = ['place', 'event'];
+      return fruits[tags.integer(0, fruits.length - 1)];
+    },
+    location_id: '{{integer(0, 99)}}',
+    date: '{{moment(this.date(new Date(2014, 0, 1), new Date())).toJSON()}}',
+    path: 'http://placehold.it/image.jpg',
+    text: '{{lorem(1, "paragraphs")}}'
+  }
+]
