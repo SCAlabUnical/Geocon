@@ -1,4 +1,11 @@
 <h1>Geocon Service</h1>
+<h2>Reference to paper</h2>
+To refer or cite this work, please use this reference: L. Belcastro, F. Marozzo, P. Trunfio, "A Scalable Middleware for Context-aware Mobile Applications". International Journal of Ad Hoc and Ubiquitous Computing, 2017.
+
+# Abstract
+A core functionality of context-aware mobile applications is storing, indexing, and retrieving information about users, places, events and other resources. The goal of this work is to design and provide a service-oriented middleware, called Geocon, which can be used by mobile developers to implement such functionality. To represent information about users, places, events and resources of context-aware applications, Geocon defines a metadata model that can be extended to match specific application requirements. The middleware includes a geocon-service for storing, searching and selecting metadata about users, resources, events and places of interest, and a geocon-client library that allows mobile applications to interact with the service through the invocation of local methods. The paper describes the Geocon middleware and presents an experimental evaluation of its scalability on a cloud platform with a real-world mobile application.
+
+
 <h2>Installation instructions:</h2>
 
 <h3>Configuring Elasticsearch, names and variables:</h3>
